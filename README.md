@@ -1,2 +1,6 @@
-# global-electronics-customer-churn-analysis
-A data analytics project using Google BigQuery (SQL) and tableau to clean, transform, and analyze a global retail dataset. The project focuses on customer churn, delivering actionable business insights and an interactive dashboard.
+# Global Electronics Retail Churn Analysis
+A data analytics project using **Google BigQuery (SQL)** and **Tableau** to transform raw retail data into insights. The project focuses on identifying customer churn patterns, delivering actionable retention strategies, and building an interactive dashboard.
+
+
+
+
