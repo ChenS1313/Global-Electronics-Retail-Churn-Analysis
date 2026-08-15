@@ -24,14 +24,13 @@ SELECT
   COUNTIF(DATE_DIFF(CURRENT_DATE(), Birthday, YEAR) < 13) AS under_13_years_old, -- too young
   COUNTIF(DATE_DIFF(CURRENT_DATE(), Birthday, YEAR) > 100) AS over_100_years_old -- too old
 
-FROM `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retailer.raw_customers`;
-
+FROM `Global_Electronics_Retailer.raw_customers`;
 
 ----------------------------------------------------------------------------------
 -- 1.2 Staging Model Creation: stg_customers
 ----------------------------------------------------------------------------------
 
-CREATE OR REPLACE TABLE `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retailer.stg_customers` AS
+CREATE OR REPLACE TABLE `Global_Electronics_Retailer.stg_customers` AS
 (
  SELECT
 -- Standardizing and rearranging the columns
@@ -44,7 +43,7 @@ CREATE OR REPLACE TABLE `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retai
     TRIM(`Zip Code`) AS zip_code,
     INITCAP(TRIM(Country)) AS country,
     INITCAP(TRIM(Continent)) AS continent
-  FROM `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retailer.raw_customers`
+  FROM `Global_Electronics_Retailer.raw_customers`
 );
 
 
@@ -71,14 +70,14 @@ SELECT
   COUNTIF(Quantity IS NULL OR Quantity <= 0) AS invalid_quantity,
   COUNTIF(`Delivery Date` < `Order Date`) AS delivery_before_order
 
-FROM `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retailer.raw_sales`; 
+FROM `Global_Electronics_Retailer.raw_sales`; 
 
 
 ----------------------------------------------------------------------------------
 -- 2.2 Staging Model Creation: stg_sales
 ----------------------------------------------------------------------------------
 
-CREATE OR REPLACE TABLE `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retailer.stg_order_items` AS
+CREATE OR REPLACE TABLE `Global_Electronics_Retailer.stg_order_items` AS
 (
   SELECT
     -- Standardizing and rearranging the columns
@@ -92,7 +91,7 @@ CREATE OR REPLACE TABLE `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retai
       `Delivery Date` AS delivery_date,
       UPPER(TRIM(`Currency Code`)) AS currency_code
 
-  FROM `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retailer.raw_sales`
+  FROM `Global_Electronics_Retailer.raw_sales`
 );
 
 
@@ -122,14 +121,14 @@ SELECT
   COUNTIF(`Unit Price USD` IS NULL OR `Unit Price USD` <= 0) AS invalid_unit_price,
   COUNTIF(`Unit Cost USD` > `Unit Price USD`) AS negative_margin_products
 
-FROM `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retailer.raw_products`;
+FROM `Global_Electronics_Retailer.raw_products`;
 
 
 ----------------------------------------------------------------------------------
 -- 3.2 Staging Model Creation: stg_products
 ----------------------------------------------------------------------------------
 
-CREATE OR REPLACE TABLE `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retailer.stg_products` AS
+CREATE OR REPLACE TABLE `Global_Electronics_Retailer.stg_products` AS
 (
   SELECT
   -- Standardizing and rearranging the columns
@@ -144,7 +143,7 @@ CREATE OR REPLACE TABLE `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retai
       `Unit Cost USD` AS unit_cost_usd,
       `Unit Price USD` AS unit_price_usd
 
-  FROM `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retailer.raw_products`
+  FROM `Global_Electronics_Retailer.raw_products`
 );
 
 
@@ -156,7 +155,7 @@ CREATE OR REPLACE TABLE `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retai
 -- 4.1 Marts Layer: Fact Table - fct_order_items
 ----------------------------------------------------------------------------------
 
-CREATE OR REPLACE TABLE `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retailer.fct_order_items` AS
+CREATE OR REPLACE TABLE `Global_Electronics_Retailer.fct_order_items` AS
 (
   SELECT
   -- Identifiers
@@ -178,9 +177,9 @@ CREATE OR REPLACE TABLE `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retai
   -- Line Item Revenue 
       ROUND(s.quantity * p.unit_price_usd, 2) AS total_revenue_usd
 
-  FROM `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retailer.stg_order_items` AS s
+  FROM `Global_Electronics_Retailer.stg_order_items` AS s
 
-  LEFT JOIN `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retailer.stg_products` AS p
+  LEFT JOIN `Global_Electronics_Retailer.stg_products` AS p
       ON s.product_id = p.product_id
 );
 
@@ -189,7 +188,7 @@ CREATE OR REPLACE TABLE `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retai
 -- 4.2 Marts Layer: Fact Table - fct_orders
 ----------------------------------------------------------------------------------
 
-CREATE OR REPLACE TABLE `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retailer.fct_orders` AS
+CREATE OR REPLACE TABLE `Global_Electronics_Retailer.fct_orders` AS
 (
   SELECT
       order_id,
@@ -199,10 +198,10 @@ CREATE OR REPLACE TABLE `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retai
       
     -- Order-Level Metrics
       SUM(quantity) AS total_items,
-      ROUND(SUM(total_amount_usd), 2) AS order_revenue_usd,
+      ROUND(SUM(total_revenue_usd), 2) AS order_revenue_usd,
       DATE_DIFF(delivery_date, order_date, DAY) AS delivery_days
 
-  FROM `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retailer.fct_order_items`
+  FROM `Global_Electronics_Retailer.fct_order_items`
   GROUP BY 
       order_id,
       customer_id,
@@ -214,9 +213,9 @@ CREATE OR REPLACE TABLE `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retai
 -- 4.3 Marts Layer: Dim Table - dim_products
 ----------------------------------------------------------------------------------
 
-CREATE OR REPLACE TABLE `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retailer.dim_products` AS
+CREATE OR REPLACE TABLE `Global_Electronics_Retailer.dim_products` AS
 (
-  Select 
+  SELECT 
       product_id,
       product_name,
       subcategory,
@@ -228,7 +227,7 @@ CREATE OR REPLACE TABLE `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retai
       unit_cost_usd,
       unit_price_usd
 
-from `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retailer.stg_products`
+from `Global_Electronics_Retailer.stg_products`
 
 );
 
@@ -236,7 +235,7 @@ from `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retailer.stg_products`
 -- 4.4 Marts Layer: Dim Table - dim_customers
 ----------------------------------------------------------------------------------
 
-CREATE OR REPLACE TABLE `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retailer.dim_customers` AS
+CREATE OR REPLACE TABLE `Global_Electronics_Retailer.dim_customers` AS
 (
   WITH customer_summary AS (
       SELECT 
@@ -245,8 +244,8 @@ CREATE OR REPLACE TABLE `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retai
           MAX(order_date) AS last_order_date,
           COUNT(order_id) AS total_orders,
           SUM(total_items) AS total_items_purchased,
-          ROUND(SUM(order_amount_usd),2) AS total_spend_usd,
-          ROUND(AVG(order_amount_usd), 2) AS aov_usd,
+          ROUND(SUM(order_revenue_usd),2) AS total_spend_usd,
+          ROUND(AVG(order_revenue_usd), 2) AS aov_usd,
           ROUND(AVG(delivery_days), 1) AS avg_delivery_days,
 
       -- Calculates the average time between orders for customers with more than one order
@@ -256,10 +255,10 @@ CREATE OR REPLACE TABLE `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retai
               ELSE NULL 
           END AS avg_days_between_orders,
 
-      -- Takes the dataset's max order_date (benchmark acting as 'today') and calculates the days difference to the customer's last order
+       -- Takes the dataset's max order_date (benchmark acting as 'today') and calculates the days difference to the customer's last order
           DATE_DIFF(MAX(MAX(order_date)) OVER(), MAX(order_date), DAY) AS recency_days
 
-      FROM `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retailer.fct_orders`
+      FROM `Global_Electronics_Retailer.fct_orders`
       GROUP BY customer_id
   )
   SELECT 
