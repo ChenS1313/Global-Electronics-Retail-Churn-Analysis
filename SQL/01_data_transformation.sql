@@ -286,11 +286,11 @@ CREATE OR REPLACE TABLE `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retai
       s.recency_days,
 
     /* Churn Logic: 
-      - For single-order customers: churned if recency > 90 days
+      - For single-order customers: churned if recency > 365 days
       - For repeat customers: churned if recency > 3 * average days between orders
      */
       CASE
-          WHEN s.total_orders = 1 AND s.recency_days > 90 THEN 1
+          WHEN s.total_orders = 1 AND s.recency_days > 365 THEN 1
           WHEN s.total_orders > 1 AND s.recency_days > (3 * s.avg_days_between_orders) THEN 1
           ELSE 0 
       END AS is_churned
