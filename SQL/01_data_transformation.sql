@@ -7,11 +7,11 @@
 ----------------------------------------------------------------------------------
 
 SELECT
-  -- Checking primary key
+-- Checking primary key
   COUNT(*) AS total_customers,
   COUNT(DISTINCT CustomerKey) AS unique_customer_keys,
   
-  -- Checking nulls on critical colums for analysis
+-- Checking nulls on critical colums for analysis
   COUNTIF(CustomerKey IS NULL) AS null_keys,
   COUNTIF(Gender IS NULL) AS missing_gender,
   COUNTIF(City IS NULL) AS missing_cities,
@@ -19,7 +19,7 @@ SELECT
   COUNTIF(Continent IS NULL) AS missing_continents,
   COUNTIF(Birthday IS NULL) AS missing_birthdays,
 
-  -- Checking business logic
+-- Checking business logic
   COUNTIF(Birthday > CURRENT_DATE()) AS future_birthdays,
   COUNTIF(DATE_DIFF(CURRENT_DATE(), Birthday, YEAR) < 13) AS under_13_years_old, -- too young
   COUNTIF(DATE_DIFF(CURRENT_DATE(), Birthday, YEAR) > 100) AS over_100_years_old -- too old
@@ -34,7 +34,7 @@ FROM `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retailer.raw_customers`;
 CREATE OR REPLACE TABLE `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retailer.stg_customers` AS
 (
  SELECT
-     -- Standardizing and rearranging the columns
+-- Standardizing and rearranging the columns
     CustomerKey AS customer_id,
     INITCAP(TRIM(Name)) AS name,
     INITCAP(TRIM(Gender)) AS gender,
@@ -46,7 +46,6 @@ CREATE OR REPLACE TABLE `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retai
     INITCAP(TRIM(Continent)) AS continent
   FROM `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retailer.raw_customers`
 );
-
 
 
 -- ===============================================================================
@@ -97,7 +96,6 @@ CREATE OR REPLACE TABLE `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retai
 );
 
 
-
 -- ===============================================================================
 -- 3. PRODUCTS TABLE (raw_products -> stg_products)
 -- ===============================================================================
@@ -134,7 +132,7 @@ FROM `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retailer.raw_products`;
 CREATE OR REPLACE TABLE `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retailer.stg_products` AS
 (
   SELECT
-      -- Standardizing and rearranging the columns
+  -- Standardizing and rearranging the columns
       ProductKey AS product_id,
       INITCAP(TRIM(`Product Name`)) AS product_name,
       INITCAP(TRIM(Subcategory)) AS subcategory,
@@ -150,7 +148,6 @@ CREATE OR REPLACE TABLE `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retai
 );
 
 
-
 -- ===============================================================================
 -- 4. MARTS LAYER ()
 -- ===============================================================================
@@ -162,24 +159,24 @@ CREATE OR REPLACE TABLE `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retai
 CREATE OR REPLACE TABLE `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retailer.fct_order_items` AS
 (
   SELECT
-      -- Identifiers
+  -- Identifiers
       s.order_id,
       s.line_item,
       s.customer_id,
       s.store_id,
       s.product_id,
       
-      -- Dates & Currency
+  -- Dates & Currency
       s.order_date,
       s.delivery_date,
       s.currency_code,
       
-      -- Item Unit Metrics
+  -- Item Unit Metrics
       s.quantity,
       p.unit_price_usd,
       
-      -- Line Item Revenue 
-      ROUND(s.quantity * p.unit_price_usd, 2) AS total_amount_usd
+  -- Line Item Revenue 
+      ROUND(s.quantity * p.unit_price_usd, 2) AS total_revenue_usd
 
   FROM `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retailer.stg_order_items` AS s
 
@@ -192,7 +189,6 @@ CREATE OR REPLACE TABLE `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retai
 -- 4.2 Marts Layer: Fact Table - fct_orders
 ----------------------------------------------------------------------------------
 
-
 CREATE OR REPLACE TABLE `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retailer.fct_orders` AS
 (
   SELECT
@@ -201,9 +197,9 @@ CREATE OR REPLACE TABLE `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retai
       order_date,
       delivery_date,
       
-      -- Order-Level Metrics
+    -- Order-Level Metrics
       SUM(quantity) AS total_items,
-      ROUND(SUM(total_amount_usd), 2) AS order_amount_usd,
+      ROUND(SUM(total_amount_usd), 2) AS order_revenue_usd,
       DATE_DIFF(delivery_date, order_date, DAY) AS delivery_days
 
   FROM `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retailer.fct_order_items`
@@ -214,12 +210,10 @@ CREATE OR REPLACE TABLE `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retai
       delivery_date
 );
 
-
-
-
 ----------------------------------------------------------------------------------
 -- 4.3 Marts Layer: Dim Table - dim_products
 ----------------------------------------------------------------------------------
+
 CREATE OR REPLACE TABLE `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retailer.dim_products` AS
 (
   Select 
@@ -238,7 +232,6 @@ from `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retailer.stg_products`
 
 );
 
-
 ----------------------------------------------------------------------------------
 -- 4.4 Marts Layer: Dim Table - dim_customers
 ----------------------------------------------------------------------------------
@@ -256,15 +249,15 @@ CREATE OR REPLACE TABLE `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retai
           ROUND(AVG(order_amount_usd), 2) AS aov_usd,
           ROUND(AVG(delivery_days), 1) AS avg_delivery_days,
 
-          -- Calculates the average time between customer orders for customers with more than one order
+      -- Calculates the average time between orders for customers with more than one order
           CASE 
               WHEN COUNT(order_id) > 1 
               THEN ROUND(DATE_DIFF(MAX(order_date), MIN(order_date), DAY) / (COUNT(order_id) - 1),0)
               ELSE NULL 
           END AS avg_days_between_orders,
 
-          -- Takes the latest order_date in the dataset (benchmark) and calculates the days difference between it and the customer's latest order
-          DATE_DIFF(MAX(MAX(order_date)) OVER(), MAX(order_date), DAY) AS days_since_last_order
+      -- Takes the dataset's max order_date (benchmark acting as 'today') and calculates the days difference to the customer's last order
+          DATE_DIFF(MAX(MAX(order_date)) OVER(), MAX(order_date), DAY) AS recency_days
 
       FROM `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retailer.fct_orders`
       GROUP BY customer_id
@@ -282,7 +275,7 @@ CREATE OR REPLACE TABLE `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retai
       s.first_order_date, 
       s.last_order_date,
 
-      -- Null handling for customers without an order
+   -- Null handling for customers without an order
       COALESCE(s.total_orders, 0) AS total_orders,
       COALESCE(s.total_items_purchased, 0) AS total_items_purchased,
       COALESCE(s.total_spend_usd, 0) AS total_spend_usd,
@@ -290,11 +283,23 @@ CREATE OR REPLACE TABLE `project-69dc4deb-819d-43d1-af9.Global_Electronics_Retai
       s.aov_usd,
       s.avg_delivery_days,
       s.avg_days_between_orders,
-      s.days_since_last_order
+      s.recency_days,
+
+    /* Churn Logic: 
+      - For single-order customers: churned if recency > 90 days
+      - For repeat customers: churned if recency > 3 * average days between orders
+     */
+      CASE
+          WHEN s.total_orders = 1 AND s.recency_days > 90 THEN 1
+          WHEN s.total_orders > 1 AND s.recency_days > (3 * s.avg_days_between_orders) THEN 1
+          ELSE 0 
+      END AS is_churned
 
   FROM `Global_Electronics_Retailer.stg_customers` AS c
   LEFT JOIN customer_summary AS s
       ON c.customer_id = s.customer_id
+
 );
+
 
 
