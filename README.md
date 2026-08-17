@@ -3,8 +3,20 @@ A data analytics project using **BigQuery (SQL)** and **Tableau** to transform r
 
 [In progress..]
 
+## 🎯 The Business Problem
+
+Acquiring new customers is significantly more expensive than retaining existing ones. 
+The goal of this project is to analyze customer purchasing behavior, establish a robust behavioral churn definition, and translate data into actionable retention strategies.
+
+### Key Questions Addressed:
+* **Who is leaving?** Which customer demographics, regions, or segments carry the highest risk of churn?
+* **What triggers churn?** What behavioral patterns (Recency, Frequency, Monetary) indicate an imminent drop-off?
+* **How can we intervene?** What proactive steps can marketing and product teams take to retain high-value customers before they officially churn?
+
+[In progress..]
 
 ## 📋 Table of Contents
+* [🎯 The Business Problem](#-the-business-problem)
 * [🛠️ The Tech Stack](#-the-tech-stack)
 * [🧹 Data Transformation & Cleaning](#-data-transformation--cleansing)
 * [⏳ More sections in progress...]
@@ -47,3 +59,9 @@ A customer is classified as **churned** if they haven't placed an order for **mo
 
 
  * All SQL Transformation and Cleaning code can be found [here](./SQL/01_data_transformation.sql)
+
+
+
+## 📊 Data Analysis & Insights
+
+[In progress..]
