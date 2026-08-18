@@ -301,4 +301,18 @@ CREATE OR REPLACE TABLE `Global_Electronics_Retailer.dim_customers` AS
 );
 
 
+----------------------------------------------------------------------------------
+-- 4.5 Marts Layer: Dim Table - dim_customers_at_risk
+----------------------------------------------------------------------------------
+-- Implements customers at risk logic
+CREATE OR REPLACE Table `Global_Electronics_Retailer.dim_customers_at_risk` AS
+(
+    SELECT *
+    FROM `Global_Electronics_Retailer.dim_customers`
+    WHERE total_orders = 1 AND (recency_days BETWEEN 300 AND 365)
+  UNION ALL 
+    SELECT *
+    FROM `Global_Electronics_Retailer.dim_customers`
+    WHERE total_orders > 1 AND recency_days > 2 * avg_days_between_orders 
+    AND recency_days < 3 * avg_days_between_orders
 
