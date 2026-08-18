@@ -54,8 +54,20 @@ A customer is classified as **churned** if the time since their last order (rece
 * **One-Time Buyers (1 order):** 
 A customer is classified as **churned** if they haven't placed an order for **more than 365 days** since their last purchase.
 
-> **Business Rationale:** A 365-day threshold was chosen to reflect the natural purchasing behavior of an electronics retailer, where customers buy infrequently (supported by the dataset's average customer interval of **411 days** between orders). This ensures we avoid prematurely flagging infrequent buyers as churned.
+> **Business Rationale:** A 365-day threshold was chosen to reflect the natural purchasing behavior of an electronics retailer, where customers buy infrequently (supported by the dataset's average customer interval of **411 days** between orders and a median of **331 days**). This ensures we avoid prematurely flagging infrequent buyers as churned.
 
+
+
+### At-Risk Logic & Methodology
+To identify customers who are showing signs of potential churn before they officially cross the churn threshold, a behavioral early-warning logic was implemented in a dedicated mart table (`dim_at_risk_customers`).
+
+* **Repeat Customers (>1 order):** 
+A customer is classified as **at-risk** if the time since their last order (recency) exceeds **2x their personal average purchase frequency** (and remains under the churn threshold of 3x).
+
+* **One-Time Buyers (1 order):** 
+A customer is classified as **at-risk** if they haven't placed an order for **300 to 365 days** since their purchase.
+
+> **Business Rationale:** The median inter-purchase interval in the dataset is 331 days. A lower threshold of 300 days was chosen to provide a strategic safety margin for one-time buyers, capturing them just before they hit the 365-day churn mark.
 <br>
 
 
