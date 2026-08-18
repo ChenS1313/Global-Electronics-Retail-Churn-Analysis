@@ -19,6 +19,7 @@ The goal of this project is to analyze customer purchasing behavior, establish a
 * [🎯 The Business Problem](#-the-business-problem)
 * [🛠️ The Tech Stack](#-the-tech-stack)
 * [🧹 Data Transformation & Cleaning](#-data-transformation--cleansing)
+* [📊 Data Analysis & Insights](#-data-analysis--insights)
 * [⏳ More sections in progress...]
 
 
@@ -63,5 +64,40 @@ A customer is classified as **churned** if they haven't placed an order for **mo
 
 
 ## 📊 Data Analysis & Insights
+
+> ### Global Churn Rate: `36.21%`
+> **More than 1 out of every 3 customers ends up churning**
+
+---
+
+### 1. Behavioral Churn
+* **First-Order Churn:** **`73%`** of all churned customers leave immediately after order #1. 
+  <br> This indicates a negative customer experience occurring in the first order (such as damaged product, or a mismatch between marketing promises and product reality).
+
+### 2. Demographic Churn: Gender 
+ * **Churn Equality:** Churn is split almost exactly **50/50** between Male (**`51%`**) and Female (**`49%`**) customers.
+
+
+### 3. Wealth Segmentation
+
+* **Low Spenders (Bottom 50%):** Show a massive **`61%` churn rate**, accounting for **`66%` of total churned volume**. This correlates directly with our first-order drop-off metric. These "Low Spenders" are essentially the one-time buyers who left immediately after their initial purchase.
+* **VIP / High Spenders (Top 20%):** In contrast, high spenders exhibit strong stability with a low churn rate of **`25%`**, contributing merely **`11%` of total churn**. They form our most secure and valuable revenue anchor.
+
+
+
+### 4. Demographic Churn: Age Group
+* **Young Users (Teens & Students):** Teens (14-18) show a catastrophic **`100% `churn rate**, closely followed by Students (19-25) at **`75%`**. While they represent a smaller portion of our customers, the company is completely failing to retain younger audiences.
+* **Older Users (Mature Adults & Seniors):** On the other hand, Mature Adults (41-60) and Seniors (61+) present the lowest churn rates (**`35%`** and **`34%`** respectively). They represent our largest customer groups and also our most loyal.
+
+
+### 5. Geographic Churn
+* **ITALY:** Although representing our smallest market by volume, it derives the highest churn rate (**`44%`**), notably higher than other European markets (**`38%–39%`**).<br> This points to localization problems, such as lack of native language support or localized payment methods.
+* **USA:** Has the lowest churn rate (**`33%`**), but accounts for a massive **`41%` of total company churn** due to its huge customer volume.
+
+
+### 6. Refuting Alternative Hypotheses
+**Delivery Times hypothesis:**  Average delivery times for churned vs. active customers are nearly identical (**`4.6` vs. `4.5` days**). This proves logistics is not the driver for churning.
+
+**Market Operation hypothesis:** Maximum order dates across all countries align closely with the benchmark date, confirming active markets. This proves the company is available across all markets and that customer churn is driven by active abandonment rather than lack of service availability.
 
 [In progress..]
