@@ -43,9 +43,9 @@ WHERE is_churned=1;
 -- Query Method:
 -- 1. Use PERCENT_RANK() to dynamically assign a spending percentile to each customer.
 -- 2. Segment customers based on their percentile:
---    - Top 20% (> 0.80) ➡️ VIP / High Spenders (Pareto Principle)
---    - Bottom 50% (<= 0.50) ➡️ Low Spenders
---    - Middle 30% (Between 0.50 and 0.80) ➡️ Medium Spenders
+--    - Top 20% (> 0.80) -> VIP / High Spenders (Pareto Principle)
+--    - Bottom 50% (<= 0.50) -> Low Spenders
+--    - Middle 30% (Between 0.50 and 0.80) -> Medium Spenders
 -- 3. Calculate the volume share of churned customers across these segments.
 
 WITH customer_percentiles AS (
@@ -142,3 +142,46 @@ SELECT
     MAX(last_order_date) AS latest_market_order_date
 FROM `Global_Electronics_Retailer.dim_customers`
 GROUP BY country;
+
+
+
+-- =================================================================================
+-- CUSTOMERS AT RISK
+-- =================================================================================
+
+-- 1. At-Risk Customer Benchmark
+-- INSIGHT: 6.66% of total customers are classified as "at risk"
+
+SELECT COUNT(DISTINCT customer_id) 
+FROM `Global_Electronics_Retailer.dim_customers_at_risk`;
+
+SELECT COUNT(DISTINCT customer_id) 
+FROM `Global_Electronics_Retailer.dim_customers`;
+
+
+-- 2. At-Risk Customers Breakdown 
+-- INSIGHT: 13% are One-Time Buyers and 87% are Repeat Customers
+
+SELECT 
+  ROUND(100 * COUNTIF(total_orders = 1) / COUNT(*), 2) AS one_order,
+  ROUND(100 * COUNTIF(total_orders > 1) / COUNT(*), 2) AS more_orders
+FROM `Global_Electronics_Retailer.dim_customers_at_risk`;
+
+
+-- 3. Spending Trend for At-Risk Repeat Customers
+-- INSIGHT: 57% of repeat customers in risk showed a last order value that dropped below their personal historical Average Order Value (AOV)
+
+WITH revenues AS (
+  SELECT 
+    r.customer_id,
+    r.aov_usd,
+    o.order_revenue_usd AS last_order_revenue
+  FROM `Global_Electronics_Retailer.dim_customers_at_risk` r
+  JOIN `Global_Electronics_Retailer.fct_orders` o
+    ON r.customer_id = o.customer_id 
+   AND r.total_orders > 1 
+   AND r.last_order_date = o.order_date -- takes only the last order
+)
+SELECT 
+  ROUND(100 * COUNTIF(aov_usd > last_order_revenue) / COUNT(*), 2) AS aov_higher_pcnt
+FROM revenues;
