@@ -11,17 +11,16 @@ The goal of this project is to analyze customer purchasing behavior, establish a
 ### Key Questions Addressed:
 * **Who is leaving?** Which customer demographics, regions, or segments carry the highest risk of churn?
 * **What triggers churn?** What behavioral patterns (Recency, Frequency, Monetary) indicate an imminent drop-off?
-* **How can we intervene?** What proactive steps can marketing and product teams take to retain high-value customers before they officially churn?
+* **How can we intervene?** What proactive steps can marketing and product teams take to retain customers before they officially churn?
 
-[In progress..]
 
 ## 📋 Table of Contents
-* [🎯 The Business Problem](#-the-business-problem)
 * [🛠️ The Tech Stack](#-the-tech-stack)
 * [🧹 Data Transformation & Cleaning](#-data-transformation--cleansing)
 * [📊 Data Analysis & Insights](#-data-analysis--insights)
-* [⏳ More sections in progress...]
-
+* [💡 Strategic Recommendations](#strategic-recommendations)
+* 
+ [⏳ More sections in progress...]
 
 ## 🛠️ The Tech Stack
 * **Data Warehouse:** Google BigQuery
@@ -103,13 +102,56 @@ A customer is classified as **at-risk** if they haven't placed an order for **30
 
 
 ### 5. Geographic Churn
-* **ITALY:** Although representing our smallest market by volume, it derives the highest churn rate (**`44%`**), notably higher than other European markets (**`38%–39%`**).<br> This points to localization problems, such as lack of native language support or localized payment methods.
+* **ITALY:** Although representing our smallest market by volume, it derives the highest churn rate (**`44%`**), notably higher than other European markets (**`38%–39%`**). This points to localization problems, such as lack of native language support or localized payment methods.
 * **USA:** Has the lowest churn rate (**`33%`**), but accounts for a massive **`41%` of total company churn** due to its huge customer volume.
 
 
 ### 6. Refuting Alternative Hypotheses
-**Delivery Times hypothesis:**  Average delivery times for churned vs. active customers are nearly identical (**`4.6` vs. `4.5` days**). This proves logistics is not the driver for churning.
+* **Delivery Times hypothesis:**  Average delivery times for churned vs. active customers are nearly identical (**`4.6` vs. `4.5` days**). This proves logistics is not the driver for churning.
 
-**Market Operation hypothesis:** Maximum order dates across all countries align closely with the benchmark date, confirming active markets. This proves the company is available across all markets and that customer churn is driven by active abandonment rather than lack of service availability.
+* **Market Operation hypothesis:** Maximum order dates across all countries align closely with the benchmark date, confirming active markets. This proves the company is available across all markets and that customer churn is driven by active abandonment rather than lack of service availability.
 
-[In progress..]
+<br>
+
+
+> ### Customers at Risk: `6.66%`
+
+---
+
+* **One-Time Buyers (13%):** 
+Positioned around our 331-day median interval between orders (recency of 300–365 days).
+
+* **Repeat Customers (87%):** 
+Buyers with multiple orders whose recency falls between **$2\times$ and $3\times$ their personal average purchase frequency**. Among them:
+    * **Low-Basket Segment (57%):** Experienced a recent order value **below** their personal historical AOV, signaling that they are exploring alternatives or slowly losing interest.
+    * **High-Basket Segment (43%):** Maintained a recent order value **at or above** their personal historical AOV, but suddenly broke their natural purchasing cadence.
+
+
+
+## 💡 Strategic Recommendations 
+
+* Deploy a targeted **post-churn** feedback survey identifying operational friction or expectation gaps in order to diagnose why 73% of customers vanished **after their first purchase**. Based on these insights, take immediate actions in order to optimize the experience and prevent future churn.
+
+
+* **Gender** plays no role in customer retention. The product and service experience affects both groups equally, meaning retention strategies should remain gender-neutral.
+
+
+* Building an automated alert system triggered when **High Spenders** deviate from their standard purchasing frequency. Once a slowdown is detected, the system automatically sends a targeted incentive or offer for their next purchase, preventing them from churning to competitors.
+
+
+* Redirect marketing and product retention budgets entirely toward **Mature Adults and Seniors**. Since they form our largest and most loyal customer groups, protecting them is critical for revenue stability. Even a small percentage drop in churn saves significant volume. 
+
+
+* Prioritize the **US market**: due to its high customer volume, even a moderate churn percentage translates into significant revenue loss, making it our highest-leverage area for **retention efforts**.
+
+
+
+### For customers at risk:
+
+* **One-Time Buyers :** 
+ To effectively engage and secure their second purchase, a personalized Cross-Sell approach is highly recommended. By offering specific, complementary accessories tailored directly to their first-order items, we can drive the second purchase right when their buying intent peaks.
+
+* **Repeat Customers:** 
+  * **Low-Basket Segment:** Deploy targeted win-back campaigns and incentivized feedback surveys to diagnose operational friction or expectation gaps before they leave.
+  * **High-Basket Segment:** Deploy a targeted at-risk survey to uncover friction or delays. If issues are detected, automatically trigger compensation vouchers and priority support to secure retention and protect revenue.
+
