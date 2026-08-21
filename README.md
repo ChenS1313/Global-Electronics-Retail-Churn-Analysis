@@ -19,6 +19,7 @@ The goal of this project is to analyze customer purchasing behavior, establish a
 * [🧹 Data Transformation & Cleaning](#-data-transformation--cleansing)
 * [🔍 Data Analysis & Insights](#-data-analysis--insights)
 * [💡 Strategic Recommendations](#strategic-recommendations)
+* [📊 Interactive Dashboard](#-interactive-dashboard).
   
  [⏳ More sections in progress...]
 
@@ -158,3 +159,7 @@ Buyers with multiple orders whose recency falls between **$2\times$ and $3\times
   * **Low-Basket Segment:** Deploy targeted win-back campaigns and incentivized feedback surveys to diagnose operational friction or expectation gaps before they leave.
   * **High-Basket Segment:** Deploy a targeted at-risk survey to uncover friction or delays. If issues are detected, automatically trigger compensation vouchers and priority support to secure retention and protect revenue.
 
+
+## 📊 Interactive Dashboard
+
+Since Tableau Public does not support a direct connection to Google BigQuery, the processed and cleaned Data Marts were exported into a single multi-sheet Excel workbook. This Excel file was then loaded into Tableau Public to build the interactive dashboard.
