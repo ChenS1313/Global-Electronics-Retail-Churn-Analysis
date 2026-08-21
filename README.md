@@ -19,8 +19,8 @@ The goal of this project is to analyze customer purchasing behavior, establish a
 * [🧹 Data Transformation & Cleaning](#-data-transformation--cleansing)
 * [🔍 Data Analysis & Insights](#-data-analysis--insights)
 * [💡 Strategic Recommendations](#strategic-recommendations)
+* [📊 Interactive Dashboard](#-interactive-dashboard)
   
- [⏳ More sections in progress...]
 
 ## 🛠️ The Tech Stack
 * **Data Warehouse:** Google BigQuery
@@ -76,8 +76,8 @@ A customer is classified as **at-risk** if they haven't placed an order for **30
 
 ## 🔍 Data Analysis & Insights
 
-> ### Global Churn Rate: `36.21%`
-> **More than 1 out of every 3 customers ends up churning**
+> ### Global Churn Rate: `46.2%`
+> **Nearly 1 out of every 2 customers ends up churning**
 
 ---
 
@@ -158,3 +158,6 @@ Buyers with multiple orders whose recency falls between **$2\times$ and $3\times
   * **Low-Basket Segment:** Deploy targeted win-back campaigns and incentivized feedback surveys to diagnose operational friction or expectation gaps before they leave.
   * **High-Basket Segment:** Deploy a targeted at-risk survey to uncover friction or delays. If issues are detected, automatically trigger compensation vouchers and priority support to secure retention and protect revenue.
 
+
+
+# 📊 Interactive Dashboard
