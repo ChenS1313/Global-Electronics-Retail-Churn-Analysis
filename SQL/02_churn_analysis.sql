@@ -4,11 +4,12 @@
 
 
 -- 1. WHAT IS THE GLOBAL CHURN RATE?
--- INSIGHT: Total Churn Rate is ~ 36%
+-- INSIGHT: Total Churn Rate is ~ 46%
 
 SELECT
      ROUND(100 * AVG(is_churned),2) AS churn_percent
-FROM `Global_Electronics_Retailer.dim_customers`;
+FROM `Global_Electronics_Retailer.dim_customers`
+WHERE first_order_date IS NOT NULL;
 
 
 
