@@ -77,8 +77,8 @@ A customer is classified as **at-risk** if they haven't placed an order for **30
 
 ## 🔍 Data Analysis & Insights
 
-> ### Global Churn Rate: `36.21%`
-> **More than 1 out of every 3 customers ends up churning**
+> ### Global Churn Rate: `46.2%`
+> **Nearly 1 out of every 2 customers ends up churning**
 
 ---
 
