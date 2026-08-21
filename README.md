@@ -17,14 +17,14 @@ The goal of this project is to analyze customer purchasing behavior, establish a
 ## 📋 Table of Contents
 * [🛠️ The Tech Stack](#-the-tech-stack)
 * [🧹 Data Transformation & Cleaning](#-data-transformation--cleansing)
-* [📊 Data Analysis & Insights](#-data-analysis--insights)
+* [🔍 Data Analysis & Insights](#-data-analysis--insights)
 * [💡 Strategic Recommendations](#strategic-recommendations)
-* 
+  
  [⏳ More sections in progress...]
 
 ## 🛠️ The Tech Stack
 * **Data Warehouse:** Google BigQuery
-* **Data Transformation & Analysis:** SQL (BigQuery SQL)
+* **Data Transformation & Analysis:** SQL
 
   [In progress..]
 
@@ -32,13 +32,13 @@ The goal of this project is to analyze customer purchasing behavior, establish a
 
 ## 🧹 Data Transformation & Cleaning
 
-Before diving into the Churn Analysis, a comprehensive Data Profiling and Cleaning process was performed using **Google BigQuery SQL**.                   The goal of this phase was to ensure data integrity, clean and structure the data, and build tables that eliminate the need for complex joins during analysis.
+Before diving into the Churn Analysis, a comprehensive Data Profiling and Cleaning process was performed using **SQL**.The goal of this phase was to ensure data integrity, clean and structure the data, and build tables that eliminate the need for complex joins during analysis.
 
 1. **Data Profiling & Quality Checks:** Checked the raw tables (`raw_customers`, `raw_sales`, `raw_products`) for missing primary keys, duplicates, and invalid business logic (e.g., negative quantities, delivery dates before order dates).
 
 2. **Staging & Cleaning** (`stg_customers`, `stg_sales`, `stg_products`): Standardized all column names to `snake_case` and handled casing and leading/trailing whitespace (`TRIM`, `INITCAP`, `UPPER`).
   
-3. **Marts** (`dim_customers`, `dim_products`, `fct_order_items`, `fct_orders`): Built the final analytical layer by aggregating and joining cleaned staging tables. This included creating core business metrics such as Recency, Frequency, and Monetary (RFM) values and essential behavioral dimensions (e.g., first/last order dates and average days between orders).
+3. **Marts** (`dim_customers`, `dim_products`, `fct_order_items`, `fct_orders`,`dim_customers_at risk`): Built the final analytical layer by aggregating and joining cleaned staging tables. This included creating core business metrics such as Recency, Frequency, and Monetary (RFM) values and essential behavioral dimensions (e.g., first/last order dates and average days between orders).
 
 
 > **Note:** Since the dataset timeline ends on February 20, 2021, this final date serves as a dynamic benchmark acting as "today" for all churn and recency analyses.
@@ -74,7 +74,7 @@ A customer is classified as **at-risk** if they haven't placed an order for **30
 
 
 
-## 📊 Data Analysis & Insights
+## 🔍 Data Analysis & Insights
 
 > ### Global Churn Rate: `36.21%`
 > **More than 1 out of every 3 customers ends up churning**
@@ -114,7 +114,7 @@ A customer is classified as **at-risk** if they haven't placed an order for **30
 <br>
 
 
-> ### Customers at Risk: `6.66%`
+> ### At-Risk Customers: `6.66%`
 
 ---
 
@@ -126,6 +126,9 @@ Buyers with multiple orders whose recency falls between **$2\times$ and $3\times
     * **Low-Basket Segment (57%):** Experienced a recent order value **below** their personal historical AOV, signaling that they are exploring alternatives or slowly losing interest.
     * **High-Basket Segment (43%):** Maintained a recent order value **at or above** their personal historical AOV, but suddenly broke their natural purchasing cadence.
 
+<br>
+
+* All SQL Churn Analysis code can be found [here](./SQL/02_churn_analysis.sql)
 
 
 ## 💡 Strategic Recommendations 
@@ -146,7 +149,7 @@ Buyers with multiple orders whose recency falls between **$2\times$ and $3\times
 
 
 
-### For customers at risk:
+### At-Risk Customers:
 
 * **One-Time Buyers :** 
  To effectively engage and secure their second purchase, a personalized Cross-Sell approach is highly recommended. By offering specific, complementary accessories tailored directly to their first-order items, we can drive the second purchase right when their buying intent peaks.
