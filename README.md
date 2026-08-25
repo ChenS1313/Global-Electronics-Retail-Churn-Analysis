@@ -97,7 +97,7 @@ A customer is classified as **at-risk** if they haven't placed an order for **30
 
 
 ### 4. Demographic Churn: Age Group
-* **Young Users (Teens & Students):** Teens (14-18) show a catastrophic **`100% `churn rate**, closely followed by Students (19-25) at **`75%`**. While they represent a smaller portion of our customers, the company is completely failing to retain younger audiences.
+* **Young Users:** Teens (14-18) show a catastrophic **`100% `churn rate**. While they represent a smaller portion of our customers, the company is completely failing to retain younger audiences.
 * **Older Users (Mature Adults & Seniors):** On the other hand, Mature Adults (41-60) and Seniors (61+) present the lowest churn rates (**`35%`** and **`34%`** respectively). They represent our largest customer groups and also our most loyal.
 
 
@@ -161,3 +161,4 @@ Buyers with multiple orders whose recency falls between **$2\times$ and $3\times
 
 
 # 📊 Interactive Dashboard
+[Tableau dashboard in progress..]
