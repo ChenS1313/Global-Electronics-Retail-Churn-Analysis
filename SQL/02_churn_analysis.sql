@@ -147,12 +147,13 @@ GROUP BY country;
 -- =================================================================================
 
 -- 1. At-Risk Customer Benchmark
--- INSIGHT: 6.66% of total customers are classified as "at risk"
+-- INSIGHT: 8.55% of total customers are classified as "at risk"
 SELECT COUNT(DISTINCT customer_id) 
 FROM `Global_Electronics_Retailer.dim_customers_at_risk`;
 
 SELECT COUNT(DISTINCT customer_id) 
-FROM `Global_Electronics_Retailer.dim_customers`;
+FROM `Global_Electronics_Retailer.dim_customers`
+WHERE total_orders >=1;
 
  
 
