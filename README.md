@@ -91,20 +91,18 @@ A customer is classified as **at-risk** if they haven't placed an order for **30
 
 
 ### 3. Wealth Segmentation
-
 * **Low Spenders (Bottom 50%):** Show a massive **`61%` churn rate**, accounting for **`66%` of total churned volume**. This correlates directly with our first-order drop-off metric. These "Low Spenders" are essentially the one-time buyers who left immediately after their initial purchase.
 * **VIP / High Spenders (Top 20%):** In contrast, high spenders exhibit strong stability with a low churn rate of **`25%`**, contributing merely **`11%` of total churn**. They form our most secure and valuable revenue anchor.
 
 
-
 ### 4. Demographic Churn: Age Group
-* **Young Users (Teens & Students):** Teens (14-18) show a catastrophic **`100% `churn rate**, closely followed by Students (19-25) at **`75%`**. While they represent a smaller portion of our customers, the company is completely failing to retain younger audiences.
+* **Young Users:** Teens (14-18) show a catastrophic **`100% `churn rate**. While they represent a smaller portion of our customers, the company is completely failing to retain younger audiences.
 * **Older Users (Mature Adults & Seniors):** On the other hand, Mature Adults (41-60) and Seniors (61+) present the lowest churn rates (**`35%`** and **`34%`** respectively). They represent our largest customer groups and also our most loyal.
 
 
 ### 5. Geographic Churn
-* **ITALY:** Although representing our smallest market by volume, it derives the highest churn rate (**`44%`**), notably higher than other European markets (**`38%–39%`**). This points to localization problems, such as lack of native language support or localized payment methods.
-* **USA:** Has the lowest churn rate (**`33%`**), but accounts for a massive **`41%` of total company churn** due to its huge customer volume.
+* **AUSTRALIA:**  This country has the highest churn rate (63%), pointing to localization issues such as shipping difficulties and a lack of localized payment methods.
+* **USA:** Has the lowest churn rate (**`40%`**), but accounts for a massive **`41%` of total company churn** due to its huge customer volume.
 
 
 ### 6. Refuting Alternative Hypotheses
