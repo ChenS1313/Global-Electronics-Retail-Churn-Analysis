@@ -1,7 +1,12 @@
 # Global Electronics Retail Churn Analysis
 A data analytics project using **BigQuery (SQL)** and **Tableau** to transform raw retail data into insights. The project focuses on identifying customer churn patterns, delivering actionable retention strategies, and building an interactive dashboard.
 
-[In progress..]
+
+<img width="1280" height="662" alt="dashboard gif" src="https://github.com/user-attachments/assets/2871fed7-e899-4a15-95b3-4f9b6ba090fb" />
+
+
+
+
 
 ## 🎯 The Business Problem
 
@@ -13,6 +18,8 @@ The goal of this project is to analyze customer purchasing behavior, establish a
 * **What triggers churn?** What behavioral patterns (Recency, Frequency, Monetary) indicate an imminent drop-off?
 * **How can we intervene?** What proactive steps can marketing and product teams take to retain customers before they officially churn?
 
+> **Note:** The dataset is lacking important customer touchpoints such as complaints, product returns, and web/app session history, so this analysis uses only the available relevant data.
+
 
 ## 📋 Table of Contents
 * [🛠️ The Tech Stack](#-the-tech-stack)
@@ -22,11 +29,11 @@ The goal of this project is to analyze customer purchasing behavior, establish a
 * [📊 Interactive Dashboard](#-interactive-dashboard)
   
 
+
 ## 🛠️ The Tech Stack
 * **Data Warehouse:** Google BigQuery
 * **Data Transformation & Analysis:** SQL
-
-  [In progress..]
+* **Data visualization**: Tableau Public
 
 
 
@@ -51,7 +58,7 @@ To accurately identify churned customers, the following logic was implemented in
 A customer is classified as **churned** if the time since their last order (recency) exceeds **3x their personal average purchase frequency** (calculated based on their historical intervals between orders).
 
 * **One-Time Buyers (1 order):** 
-A customer is classified as **churned** if they haven't placed an order for **more than 365 days** since their last purchase.
+A customer is classified as **churned** if they haven't placed an order for **more than 365 days** since their purchase.
 
 > **Business Rationale:** A 365-day threshold was chosen to reflect the natural purchasing behavior of an electronics retailer, where customers buy infrequently (supported by the dataset's average customer interval of **411 days** between orders and a median of **331 days**). This ensures we avoid prematurely flagging infrequent buyers as churned.
 
@@ -90,10 +97,8 @@ A customer is classified as **at-risk** if they haven't placed an order for **30
 
 
 ### 3. Wealth Segmentation
-
 * **Low Spenders (Bottom 50%):** Show a massive **`61%` churn rate**, accounting for **`66%` of total churned volume**. This correlates directly with our first-order drop-off metric. These "Low Spenders" are essentially the one-time buyers who left immediately after their initial purchase.
 * **VIP / High Spenders (Top 20%):** In contrast, high spenders exhibit strong stability with a low churn rate of **`25%`**, contributing merely **`11%` of total churn**. They form our most secure and valuable revenue anchor.
-
 
 
 ### 4. Demographic Churn: Age Group
@@ -102,8 +107,8 @@ A customer is classified as **at-risk** if they haven't placed an order for **30
 
 
 ### 5. Geographic Churn
-* **ITALY:** Although representing our smallest market by volume, it derives the highest churn rate (**`44%`**), notably higher than other European markets (**`38%–39%`**). This points to localization problems, such as lack of native language support or localized payment methods.
-* **USA:** Has the lowest churn rate (**`33%`**), but accounts for a massive **`41%` of total company churn** due to its huge customer volume.
+* **AUSTRALIA:**  This country has the highest churn rate (63%), pointing to localization issues such as shipping difficulties and a lack of localized payment methods.
+* **USA:** Has the lowest churn rate (**`40%`**), but accounts for a massive **`41%` of total company churn** due to its huge customer volume.
 
 
 ### 6. Refuting Alternative Hypotheses
@@ -114,7 +119,7 @@ A customer is classified as **at-risk** if they haven't placed an order for **30
 <br>
 
 
-> ### At-Risk Customers: `6.66%`
+> ### At-Risk Customers: `8.56%`
 
 ---
 
@@ -159,6 +164,8 @@ Buyers with multiple orders whose recency falls between **$2\times$ and $3\times
   * **High-Basket Segment:** Deploy a targeted at-risk survey to uncover friction or delays. If issues are detected, automatically trigger compensation vouchers and priority support to secure retention and protect revenue.
 
 
+## 📊 Interactive Dashboard
 
-# 📊 Interactive Dashboard
-[Tableau dashboard in progress..]
+Since Tableau Public does not support a direct connection to Google BigQuery, the processed and cleaned Data Marts were exported into a single multi-sheet Excel workbook. This Excel file was then loaded into Tableau Public to build the interactive dashboard.
+
+🔗 **[Live Interactive Dashboard on Tableau Public](https://public.tableau.com/views/Global_Electronics_Churn_dashboard/Dashboard1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)**
