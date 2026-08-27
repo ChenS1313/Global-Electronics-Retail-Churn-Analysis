@@ -1,7 +1,11 @@
 # Global Electronics Retail Churn Analysis
 A data analytics project using **BigQuery (SQL)** and **Tableau** to transform raw retail data into insights. The project focuses on identifying customer churn patterns, delivering actionable retention strategies, and building an interactive dashboard.
 
-[In progress..]
+
+<img width="1280" height="665" alt="dashboard_gif" src="https://github.com/user-attachments/assets/e5e47465-3b98-476e-bdbe-8002703a6366" />
+
+
+
 
 ## 🎯 The Business Problem
 
@@ -13,21 +17,22 @@ The goal of this project is to analyze customer purchasing behavior, establish a
 * **What triggers churn?** What behavioral patterns (Recency, Frequency, Monetary) indicate an imminent drop-off?
 * **How can we intervene?** What proactive steps can marketing and product teams take to retain customers before they officially churn?
 
+> **Note:** The dataset is lacking important customer touchpoints such as complaints, product returns, and web/app session history, so this analysis uses only the available relevant data.
+
 
 ## 📋 Table of Contents
 * [🛠️ The Tech Stack](#-the-tech-stack)
 * [🧹 Data Transformation & Cleaning](#-data-transformation--cleansing)
 * [🔍 Data Analysis & Insights](#-data-analysis--insights)
 * [💡 Strategic Recommendations](#strategic-recommendations)
-* [📊 Interactive Dashboard](#-interactive-dashboard).
+* [📊 Interactive Dashboard](#-interactive-dashboard)
   
- [⏳ More sections in progress...]
+
 
 ## 🛠️ The Tech Stack
 * **Data Warehouse:** Google BigQuery
 * **Data Transformation & Analysis:** SQL
-
-  [In progress..]
+* **Data visualization**: Tableau Public
 
 
 
@@ -52,7 +57,7 @@ To accurately identify churned customers, the following logic was implemented in
 A customer is classified as **churned** if the time since their last order (recency) exceeds **3x their personal average purchase frequency** (calculated based on their historical intervals between orders).
 
 * **One-Time Buyers (1 order):** 
-A customer is classified as **churned** if they haven't placed an order for **more than 365 days** since their last purchase.
+A customer is classified as **churned** if they haven't placed an order for **more than 365 days** since their purchase.
 
 > **Business Rationale:** A 365-day threshold was chosen to reflect the natural purchasing behavior of an electronics retailer, where customers buy infrequently (supported by the dataset's average customer interval of **411 days** between orders and a median of **331 days**). This ensures we avoid prematurely flagging infrequent buyers as churned.
 
@@ -161,3 +166,5 @@ Buyers with multiple orders whose recency falls between **$2\times$ and $3\times
 ## 📊 Interactive Dashboard
 
 Since Tableau Public does not support a direct connection to Google BigQuery, the processed and cleaned Data Marts were exported into a single multi-sheet Excel workbook. This Excel file was then loaded into Tableau Public to build the interactive dashboard.
+
+🔗 **[Live Interactive Dashboard on Tableau Public](https://public.tableau.com/views/Global_Electronics_Churn_dashboard/Dashboard1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)**
