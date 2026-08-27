@@ -2,7 +2,8 @@
 A data analytics project using **BigQuery (SQL)** and **Tableau** to transform raw retail data into insights. The project focuses on identifying customer churn patterns, delivering actionable retention strategies, and building an interactive dashboard.
 
 
-<img width="1280" height="665" alt="dashboard_gif" src="https://github.com/user-attachments/assets/e5e47465-3b98-476e-bdbe-8002703a6366" />
+<img width="1280" height="662" alt="dashboard gif" src="https://github.com/user-attachments/assets/2871fed7-e899-4a15-95b3-4f9b6ba090fb" />
+
 
 
 
