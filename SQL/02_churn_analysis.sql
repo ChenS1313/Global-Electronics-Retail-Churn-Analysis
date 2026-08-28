@@ -36,7 +36,7 @@ WHERE is_churned=1;
 
 
 
--- 4. WEALTH SEGMENTATION: VOLUME OF CHURN BY SPENDING 
+-- 4. SPENDING SEGMENTATION: VOLUME OF CHURN BY SPENDING 
 -- INSIGHT: Over 66% of all churned customers are Low Spenders and 1 out of 4 of High Spenders leave as well.Since most users leave after the first order, their total lifetime spend remains low.
 
 -- Query Method:
