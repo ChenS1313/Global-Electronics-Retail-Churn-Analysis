@@ -1,8 +1,8 @@
 # Global Electronics Retail Churn Analysis
 A data analytics project using **BigQuery (SQL)** and **Tableau** to transform raw retail data into insights. The project focuses on identifying customer churn patterns, delivering actionable retention strategies, and building an interactive dashboard.
 
+<img width="1280" height="671" alt="dashboard_gif" src="https://github.com/user-attachments/assets/8bd6d45c-0cd8-421b-87ea-e44cc2846288" />
 
-<img width="1280" height="662" alt="dashboard gif" src="https://github.com/user-attachments/assets/2871fed7-e899-4a15-95b3-4f9b6ba090fb" />
 
 
 
@@ -22,11 +22,11 @@ The goal of this project is to analyze customer purchasing behavior, establish a
 
 
 ## 📋 Table of Contents
-* [🛠️ The Tech Stack](#-the-tech-stack)
-* [🧹 Data Transformation & Cleaning](#-data-transformation--cleansing)
-* [🔍 Data Analysis & Insights](#-data-analysis--insights)
+* [🛠️ The Tech Stack](#the-tech-stack)
+* [🧹 Data Transformation & Cleaning](#data-transformation--cleaning)
+* [🔍 Data Analysis & Insights](#data-analysis--insights)
 * [💡 Strategic Recommendations](#strategic-recommendations)
-* [📊 Interactive Dashboard](#-interactive-dashboard)
+* [📊 Interactive Dashboard](#interactive-dashboard)
   
 
 
@@ -96,7 +96,7 @@ A customer is classified as **at-risk** if they haven't placed an order for **30
  * **Churn Equality:** Churn is split almost exactly **50/50** between Male (**`51%`**) and Female (**`49%`**) customers.
 
 
-### 3. Wealth Segmentation
+### 3. Spending Segmentation
 * **Low Spenders (Bottom 50%):** Show a massive **`61%` churn rate**, accounting for **`66%` of total churned volume**. This correlates directly with our first-order drop-off metric. These "Low Spenders" are essentially the one-time buyers who left immediately after their initial purchase.
 * **VIP / High Spenders (Top 20%):** In contrast, high spenders exhibit strong stability with a low churn rate of **`25%`**, contributing merely **`11%` of total churn**. They form our most secure and valuable revenue anchor.
 
@@ -107,7 +107,7 @@ A customer is classified as **at-risk** if they haven't placed an order for **30
 
 
 ### 5. Geographic Churn
-* **AUSTRALIA:**  This country has the highest churn rate (63%), pointing to localization issues such as shipping difficulties and a lack of localized payment methods.
+* **AUSTRALIA:**  This country has the highest churn rate (**`63%`**), pointing to localization issues such as shipping difficulties and a lack of localized payment methods.
 * **USA:** Has the lowest churn rate (**`40%`**), but accounts for a massive **`41%` of total company churn** due to its huge customer volume.
 
 
