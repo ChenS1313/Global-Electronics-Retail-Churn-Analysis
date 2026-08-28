@@ -22,22 +22,22 @@ The goal of this project is to analyze customer purchasing behavior, establish a
 
 
 ## 📋 Table of Contents
-* [🛠️ The Tech Stack](#the-tech-stack)
-* [🧹 Data Transformation & Cleaning](#data-transformation--cleaning)
-* [🔍 Data Analysis & Insights](#data-analysis--insights)
-* [💡 Strategic Recommendations](#strategic-recommendations)
-* [📊 Interactive Dashboard](#interactive-dashboard)
+* [🛠️ The Tech Stack](#tech-stack)
+* [🧹 Data Transformation & Cleaning](#cleaning)
+* [🔍 Data Analysis & Insights](#insights)
+* [💡 Strategic Recommendations](#strategic)
+* [📊 Interactive Dashboard](#dashboard)
   
 
 
-## 🛠️ The Tech Stack
+## <a id="tech-stack"></a>🛠️ The Tech Stack
 * **Data Warehouse:** Google BigQuery
 * **Data Transformation & Analysis:** SQL
 * **Data visualization**: Tableau Public
 
 
 
-## 🧹 Data Transformation & Cleaning
+## <a id="cleaning"></a>🧹 Data Transformation & Cleaning
 
 Before diving into the Churn Analysis, a comprehensive Data Profiling and Cleaning process was performed using **SQL**.The goal of this phase was to ensure data integrity, clean and structure the data, and build tables that eliminate the need for complex joins during analysis.
 
@@ -81,8 +81,7 @@ A customer is classified as **at-risk** if they haven't placed an order for **30
 
 
 
-## 🔍 Data Analysis & Insights
-
+## <a id="insights"></a>🔍 Data Analysis & Insights
 > ### Global Churn Rate: `46.2%`
 > **Nearly 1 out of every 2 customers ends up churning**
 
@@ -136,7 +135,7 @@ Buyers with multiple orders whose recency falls between **$2\times$ and $3\times
 * All SQL Churn Analysis code can be found [here](./SQL/02_churn_analysis.sql)
 
 
-## 💡 Strategic Recommendations 
+## <a id="strategic"></a>💡 Strategic Recommendations
 
 * Deploy a targeted **post-churn** feedback survey identifying operational friction or expectation gaps in order to diagnose why 73% of customers vanished **after their first purchase**. Based on these insights, take immediate actions in order to optimize the experience and prevent future churn.
 
@@ -164,7 +163,7 @@ Buyers with multiple orders whose recency falls between **$2\times$ and $3\times
   * **High-Basket Segment:** Deploy a targeted at-risk survey to uncover friction or delays. If issues are detected, automatically trigger compensation vouchers and priority support to secure retention and protect revenue.
 
 
-## 📊 Interactive Dashboard
+## <a id="dashboard"></a>📊 Interactive Dashboard
 
 Since Tableau Public does not support a direct connection to Google BigQuery, the processed and cleaned Data Marts were exported into a single multi-sheet Excel workbook. This Excel file was then loaded into Tableau Public to build the interactive dashboard.
 
