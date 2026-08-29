@@ -16,7 +16,7 @@ The goal of this project is to analyze customer purchasing behavior, establish a
 ### Key Questions Addressed:
 * **Who is leaving?** Which customer demographics, regions, or segments carry the highest risk of churn?
 * **What triggers churn?** What behavioral patterns (Recency, Frequency, Monetary) indicate an imminent drop-off?
-* **How can we intervene?** What proactive steps can marketing and product teams take to retain customers before they officially churn?
+* **How can we intervene?** Based on historical churn patterns, what proactive steps can marketing and product teams take to retain customers before they officially churn?
 
 > **Note:** The dataset is lacking important customer touchpoints such as complaints, product returns, and web/app session history, so this analysis uses only the available relevant data.
 
